@@ -11,7 +11,7 @@ CMyString::CMyString()
 }
 
 CMyString::~CMyString(){
-    Release();
+    Release(); 
 }
 
 int CMyString::SetString(const char *pszParam){
@@ -41,7 +41,7 @@ int CMyString::SetString(const char *pszParam){
     return m_nLength;
 }
 
-const char *CMyString::GetString(){
+const char *CMyString::GetString() const{
     return m_pszData;
 }
 

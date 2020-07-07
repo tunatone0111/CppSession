@@ -2,12 +2,16 @@
 #include "MyString.h"
 using namespace std;
 
+void TestFunc(const CMyString &param){
+    cout << param.GetString() << endl;
+    return;
+}
+
 int main()
 {
     CMyString strData;
     strData.SetString("Hello");
-    strData.SetString("World");
-    cout << strData.GetString() << endl;
+    TestFunc(strData);
 
     return 0;
 }
