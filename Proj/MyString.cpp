@@ -7,11 +7,24 @@ using namespace std;
 CMyString::CMyString()
     : m_pszData(NULL),
       m_nLength(0)
-{
-}
+{ }
 
 CMyString::~CMyString(){
     Release(); 
+}
+
+CMyString::CMyString(const CMyString &rhs)
+    : m_nLength(0),
+      m_pszData(NULL)
+{
+    this->SetString(rhs.GetString());
+}
+
+CMyString& CMyString::operator=(const CMyString& rhs){
+    if(this != &rhs){
+        this->SetString(rhs.GetString());
+    }
+    return *this;
 }
 
 int CMyString::SetString(const char *pszParam){
@@ -31,12 +44,8 @@ int CMyString::SetString(const char *pszParam){
     }
 
     m_pszData = new char[m_nLength];
-    
-    for(int i = 0; i < m_nLength; i++){
-        m_pszData[i] = pszParam[i];
-    }
-    
-    m_pszData[m_nLength] = '\0';
+
+    strcpy(m_pszData, pszParam);
     
     return m_nLength;
 }

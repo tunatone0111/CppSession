@@ -4,7 +4,9 @@ class CMyString
 {
 public:
     CMyString();
+    CMyString(const CMyString&);                // copy constructor
     ~CMyString();
+    CMyString& operator =(const CMyString&);    // operater overload
 
 private:
     // 문자열을 저장하기 위해 동적 할당한 메모리를 가리키는 포인터
