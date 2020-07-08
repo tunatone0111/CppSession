@@ -31,7 +31,7 @@ public:
     void Release();
     CMyString& operator =(const CMyString&);    // operater overload
     CMyString& operator =(CMyString&&);
-    operator char*() const {return m_pszData;}   // type cast
+    explicit operator char*() const {return m_pszData;}   // type cast
     int GetLength() const { return m_nLength;}
     int Append(const char *);
 
@@ -39,4 +39,6 @@ public:
     CMyString& operator+=(const CMyString&);
     char& operator[](int);
     char operator[](int) const;
+    int operator==(const CMyString&);
+    int operator!=(const CMyString&);
 };

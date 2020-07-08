@@ -133,6 +133,25 @@ char CMyString::operator[](int nIndex) const{
     return m_pszData[nIndex];
 }
 
+int CMyString::operator==(const CMyString &rhs){
+    if(m_pszData != NULL && rhs.m_pszData != NULL){
+        if(strcmp(m_pszData, rhs.m_pszData) == 0){
+            return 1;
+        }
+    }
+    return 0;
+}
+
+int CMyString::operator!=(const CMyString &rhs){
+    if(m_pszData != NULL && rhs.m_pszData != NULL){
+        if(strcmp(m_pszData, rhs.m_pszData) == 0){
+            return 0;
+        }
+    }
+    return 1;
+}
+
+
 void CMyString::Release(){
     if (m_pszData != NULL)
         delete[] m_pszData;

@@ -9,9 +9,19 @@ void TestFunc(const CMyString &strParam){
 
 int main()
 {
-    CMyString strParam("HelloWorld");
-    cout << strParam << endl;
-    TestFunc(strParam);
+    CMyString strLeft("Test"), strRight("String");
+
+    if(strLeft == strRight)
+        cout << "same" << endl;
+    else
+        cout << "different" << endl;
+
+    strLeft = CMyString("String");
+
+    if(strLeft != strRight)
+        cout << "different" << endl;
+    else
+        cout << "same" << endl;
 
     return 0;
 }
