@@ -20,6 +20,13 @@ CMyString::CMyString(const CMyString &rhs)
     this->SetString(rhs.GetString());
 }
 
+CMyString::CMyString(const char *rhs) 
+    : m_nLength(0), 
+      m_pszData(NULL)
+{
+    this->SetString(rhs);
+}
+
 CMyString& CMyString::operator=(const CMyString& rhs){
     if(this != &rhs){
         this->SetString(rhs.GetString());

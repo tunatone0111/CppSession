@@ -5,8 +5,8 @@ class CMyString
 public:
     CMyString();
     CMyString(const CMyString&);                // copy constructor
+    explicit CMyString(const char*);
     ~CMyString();
-    CMyString& operator =(const CMyString&);    // operater overload
 
 private:
     // 문자열을 저장하기 위해 동적 할당한 메모리를 가리키는 포인터
@@ -19,4 +19,7 @@ public:
     int SetString(const char *pszParam);
     const char *GetString() const;
     void Release();
+    CMyString& operator =(const CMyString&);    // operater overload
+    operator char*() const {return m_pszData;}   // type cast
+
 };
