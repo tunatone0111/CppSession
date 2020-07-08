@@ -3,9 +3,19 @@
 class CMyString
 {
 public:
+    //디폴트 생성자
     CMyString();
-    CMyString(const CMyString&);                // copy constructor
-    explicit CMyString(const char*);
+
+    //복사 생성자
+    CMyString(const CMyString&);
+    
+    //이동 생성자
+    CMyString(CMyString&&);
+    
+    //변환 생성자
+    CMyString(const char*);
+    
+    //소멸자
     ~CMyString();
 
 private:
@@ -20,6 +30,11 @@ public:
     const char *GetString() const;
     void Release();
     CMyString& operator =(const CMyString&);    // operater overload
+    CMyString& operator =(CMyString&&);
     operator char*() const {return m_pszData;}   // type cast
+    int GetLength() const { return m_nLength;}
+    int Append(const char *);
 
+    CMyString operator+(const CMyString&);
+    CMyString& operator+=(const CMyString&);
 };
