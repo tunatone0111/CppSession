@@ -117,6 +117,22 @@ CMyString& CMyString::operator+=(const CMyString &rhs){
     return *this;
 }
 
+char& CMyString::operator[](int nIndex){
+    if(nIndex<0 || nIndex>m_nLength){
+        cout << "unavailable" << endl;
+        return m_pszData[0];
+    }
+    return m_pszData[nIndex];
+}
+
+char CMyString::operator[](int nIndex) const{
+    if(nIndex<0 || nIndex>m_nLength){
+        cout << "unavailable" << endl;
+        return m_pszData[0];
+    }
+    return m_pszData[nIndex];
+}
+
 void CMyString::Release(){
     if (m_pszData != NULL)
         delete[] m_pszData;

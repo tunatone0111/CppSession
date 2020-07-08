@@ -37,4 +37,6 @@ public:
 
     CMyString operator+(const CMyString&);
     CMyString& operator+=(const CMyString&);
+    char& operator[](int);
+    char operator[](int) const;
 };

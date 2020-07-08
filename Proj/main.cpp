@@ -2,23 +2,16 @@
 #include "MyString.h"
 using namespace std;
 
-CMyString TestFunc(void){
-    CMyString strTest("TestFunc() return");
-    cout << strTest << endl;
-
-    return strTest;
+void TestFunc(const CMyString &strParam){
+    cout << strParam[0] << endl;
+    cout << strParam[strParam.GetLength()-1] << endl;
 }
 
 int main()
 {
-    CMyString strLeft("Hello"), strRight("World"), strResult;
-
-    strResult = strLeft + strRight;
-    cout << strResult << endl;
-
-    cout << strLeft << endl;
-    strLeft += CMyString("World");
-    cout << strLeft << endl;
+    CMyString strParam("HelloWorld");
+    cout << strParam << endl;
+    TestFunc(strParam);
 
     return 0;
 }
