@@ -8,3 +8,8 @@ int CMyStringEx::Find(const char *pszParam){
         return 0;
     return strResult-temp;
 }
+
+void CMyStringEx::OnSetString(char* pszData, int nLength){
+    if(strcmp(pszData, "멍멍이아들") == 0)
+        strcpy(pszData, "*착한아들*");
+}

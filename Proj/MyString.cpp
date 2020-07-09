@@ -63,6 +63,8 @@ int CMyString::SetString(const char *pszParam){
 
     strcpy(m_pszData, pszParam);
     
+    OnSetString(m_pszData, m_nLength);
+
     return m_nLength;
 }
 
@@ -93,6 +95,10 @@ int CMyString::Append(const char *pszParam){
     m_nLength = nLenCur+nLenParam;
 
     return m_nLength;
+}
+
+void CMyString::OnSetString(char* pszData, int nLength){
+
 }
 
 CMyString CMyString::operator+(const CMyString &rhs){

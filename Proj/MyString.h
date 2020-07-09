@@ -31,6 +31,7 @@ public:
     
     int GetLength() const { return m_nLength;}
     int Append(const char *);
+    virtual void OnSetString(char*, int);
 
     explicit operator char*() const {return m_pszData;}
 
