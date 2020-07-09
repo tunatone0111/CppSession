@@ -1,6 +1,11 @@
 #include "MyStringEx.h"
 #include <string.h>
 
+CMyStringEx::CMyStringEx(const char *pszParam)
+    :CMyString(pszParam)
+{
+}
+
 int CMyStringEx::Find(const char *pszParam){
     const char *temp = GetString();
     const char *strResult;

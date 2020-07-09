@@ -4,14 +4,8 @@ using namespace std;
 
 int main()
 {
-    CMyStringEx strTest;
-
-    strTest.SetString("멍멍이아들");
-    cout << (char*)strTest << endl;
-
-    strTest.SetString("Hello");
-    cout << (char*)strTest << endl;
+    CMyStringEx strLeft("Hello"), strRight("World");
+    cout << (char*)(strLeft + strRight) << endl;
 
     return 0;
-
 }

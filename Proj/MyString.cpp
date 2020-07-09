@@ -7,7 +7,9 @@ using namespace std;
 CMyString::CMyString()
     : m_pszData(NULL),
       m_nLength(0)
-{}
+{
+    cout << "CMyString 디폴트 생성자 호출" << endl;
+}
 
 CMyString::~CMyString(){
     Release();
@@ -16,12 +18,14 @@ CMyString::~CMyString(){
 CMyString::CMyString(const CMyString &rhs)
     : m_nLength(0), m_pszData(NULL)
 {
+    cout << "CMyString 복사 생성자 호출" << endl;
     this->SetString(rhs.GetString());
 }
 
 CMyString::CMyString(CMyString &&rhs)
     : m_nLength(0), m_pszData(NULL)
 {
+    cout << "CMyString 이동 생성자 호출" << endl;
     m_nLength = rhs.m_nLength;
     m_pszData = rhs.m_pszData;
     rhs.m_pszData = NULL;
@@ -31,6 +35,7 @@ CMyString::CMyString(CMyString &&rhs)
 CMyString::CMyString(const char *rhs) 
     : m_nLength(0), m_pszData(NULL)
 {
+    cout << "CMyString 변환 생성자 호출" << endl;
     this->SetString(rhs);
 }
 
@@ -42,6 +47,7 @@ CMyString& CMyString::operator=(const CMyString& rhs){
 }
 
 CMyString& CMyString::operator=(CMyString &&rhs){
+    cout << "CMyString 이동 대입 연산자 호출" << endl;
     m_nLength = rhs.m_nLength;
     m_pszData = rhs.m_pszData;
     rhs.m_pszData = NULL;
