@@ -10,32 +10,28 @@ CMyString::CMyString()
 {}
 
 CMyString::~CMyString(){
-    Release(); 
+    Release();
 }
 
 CMyString::CMyString(const CMyString &rhs)
-    : m_nLength(0),
-      m_pszData(NULL)
+    : m_nLength(0), m_pszData(NULL)
 {
     this->SetString(rhs.GetString());
 }
 
-CMyString::CMyString(const char *rhs) 
-    : m_nLength(0), 
-      m_pszData(NULL)
-{
-    this->SetString(rhs);
-}
-
 CMyString::CMyString(CMyString &&rhs)
-    : m_nLength(0),
-      m_pszData(NULL)
+    : m_nLength(0), m_pszData(NULL)
 {
-    cout << "이동 생성자 호출" << endl;
     m_nLength = rhs.m_nLength;
     m_pszData = rhs.m_pszData;
     rhs.m_pszData = NULL;
     rhs.m_nLength = 0;
+}
+
+CMyString::CMyString(const char *rhs) 
+    : m_nLength(0), m_pszData(NULL)
+{
+    this->SetString(rhs);
 }
 
 CMyString& CMyString::operator=(const CMyString& rhs){
@@ -46,7 +42,6 @@ CMyString& CMyString::operator=(const CMyString& rhs){
 }
 
 CMyString& CMyString::operator=(CMyString &&rhs){
-    cout << "이동 대입 연산자 호출" << endl;
     m_nLength = rhs.m_nLength;
     m_pszData = rhs.m_pszData;
     rhs.m_pszData = NULL;
@@ -58,17 +53,11 @@ int CMyString::SetString(const char *pszParam){
     
     Release();
 
-    if(pszParam == NULL){
-        cout << "ERR: NULL pointer" << endl;
-        return -1;
-    }
+    if(pszParam == NULL) return 0;
 
     m_nLength = strlen(pszParam);
     
-    if(m_nLength == 0){
-        cout << "ERR: string length is 0" << endl;
-        return -1;
-    }
+    if(m_nLength == 0) return 0;
 
     m_pszData = new char[m_nLength];
 
