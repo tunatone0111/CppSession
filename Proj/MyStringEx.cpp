@@ -11,5 +11,5 @@ int CMyStringEx::Find(const char *pszParam){
 
 void CMyStringEx::OnSetString(char* pszData, int nLength){
     if(strcmp(pszData, "멍멍이아들") == 0)
-        strcpy(pszData, "*착한아들*");
+        strcpy(pszData, "*착한아들");
 }

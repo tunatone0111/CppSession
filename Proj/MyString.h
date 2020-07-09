@@ -32,6 +32,7 @@ public:
     int GetLength() const { return m_nLength;}
     int Append(const char *);
     virtual void OnSetString(char*, int);
+    friend CMyString operator+(const char*, const CMyString&);
 
     explicit operator char*() const {return m_pszData;}
 
