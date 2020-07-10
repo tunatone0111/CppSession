@@ -20,7 +20,7 @@ void PrintAll();
 int RemoveNode(char*);
 void Remove();
 int PrintUI();
-int LoadListr(char*);
+int LoadList(char*);
 int SaveList(char*);
 void ReleaseList();
 
