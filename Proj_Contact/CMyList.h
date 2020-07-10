@@ -1,9 +1,10 @@
 #pragma once
 #include "CUserData.h"
+#define DATA_FILE_NAME "Address.dat"
 
 class CMyList{
 public:
-    CMyList(const char*);
+    CMyList();
     ~CMyList();
 
     CUserData* FindNode(const char*);

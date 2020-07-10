@@ -29,9 +29,9 @@ void CUserInterface::Search(){
     fflush(stdin);
     scanf("%s", szName);
 
-    pNode = FindNode(szName);
+    pNode = m_List.FindNode(szName);
     if(pNode != NULL)
-        printf("[%p] %s\t%s [%p]\n", pNode, pNode->szName, pNode->szPhone, pNode->pNext);
+        printf("[%p] %s\t%s [%p]\n", pNode, pNode->GetName(), pNode->GetPhone(), pNode->GetNext());
     else
         puts("ERROR: 데이터를 찾을 수 없습니다.");
 
@@ -46,7 +46,7 @@ void CUserInterface::Remove(){
     fflush(stdin);
     scanf("%s", szName);
 
-    RemoveNode(szName);
+    m_List.RemoveNode(szName);
 }
 
 int CUserInterface::Run(){
@@ -63,7 +63,7 @@ int CUserInterface::Run(){
             break;
 
         case 3:
-            // PrintAll();
+            m_List.PrintAll();
             break;
 
         case 4:

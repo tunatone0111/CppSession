@@ -3,11 +3,11 @@
 #include <string.h>
 using namespace std;
 
-CMyList::CMyList(const char* pszParam) : pszFileName(pszParam){
+CMyList::CMyList(){
     FILE *fp = NULL;
     CUserData user;
 
-    if ((fp = fopen(pszFileName, "rb")) != NULL){
+    if ((fp = fopen(DATA_FILE_NAME, "rb")) != NULL){
         ReleaseList();
 
         while(fread(&user, sizeof(CUserData), 1, fp))
@@ -15,14 +15,16 @@ CMyList::CMyList(const char* pszParam) : pszFileName(pszParam){
 
         fclose(fp);
     }
+    else{
     cout << "ERROR: 리스트 파일을 읽기 모드로 열지 못했습니다." << endl;
+    }
 }
 
 CMyList::~CMyList(){
     FILE *fp = NULL;
-    CUserData *pTmp = m_Head.GetNext();
+    CUserData *pTmp = m_Head.pNext;
 
-    if((fp = fopen(pszFileName, "wb")) == NULL){
+    if((fp = fopen(DATA_FILE_NAME, "wb")) == NULL){
         puts("ERROR: 리스트 파일을 쓰기 모드로 열지 못했습니다.");
         fflush(stdin);
         getchar();
@@ -33,22 +35,23 @@ CMyList::~CMyList(){
                 printf("ERROR: %s에 대한 정보를 저장하는 데 실패했습니다.\n", pTmp->GetName());
                 break;
             }
-            pTmp = pTmp->GetNext();
+            pTmp = pTmp->pNext;
         }
     }
 
-
     fclose(fp);
+
+    ReleaseList();
 }
 
 CUserData* CMyList::FindNode(const char* pszName){
     // 리스트에서 이름으로 특정 노드를 검색
-    CUserData *pTmp = m_Head.GetNext();
+    CUserData *pTmp = m_Head.pNext;
     while(pTmp != NULL){
-        if(strcmp(pTmp->GetPhone(), pszName) == 0)
+        if(strcmp(pTmp->GetName(), pszName) == 0)
             return pTmp;
         
-        pTmp = pTmp->GetNext();
+        pTmp = pTmp->pNext;
     }
     return NULL;
 }
@@ -65,14 +68,14 @@ int CMyList::AddNewNode(const char* pszName, const char* pszPhone){
     strcpy(pNewUser->szPhone, pszPhone);
     pNewUser->pNext = NULL;
 
-    pNewUser->pNext = g_Head.pNext;
-    g_Head.pNext = pNewUser;
+    pNewUser->pNext = m_Head.pNext;
+    m_Head.pNext = pNewUser;
 
     return 1;
 }
 
 void CMyList::PrintAll(){
-    USERDATA *pTmp = g_Head.pNext;
+    CUserData *pTmp = m_Head.pNext;
     while(pTmp != NULL){
         printf("[%p] %s\t%s [%p]\n", pTmp, pTmp->szName, pTmp->szPhone, pTmp->pNext);
         pTmp = pTmp->pNext;
@@ -82,9 +85,9 @@ void CMyList::PrintAll(){
     getchar();
 }
 
-int CMyList::RemoveNode(char*pszName){
-    USERDATA *pPrevNode = &g_Head;
-    USERDATA *pDelete = NULL;
+int CMyList::RemoveNode(const char* pszName){
+    CUserData *pPrevNode = &m_Head;
+    CUserData *pDelete = NULL;
 
     while(pPrevNode->pNext != NULL){
         pDelete = pPrevNode->pNext;
@@ -100,13 +103,13 @@ int CMyList::RemoveNode(char*pszName){
 }
 
 void CMyList::ReleaseList(){
-    USERDATA *pTmp = g_Head.pNext;
-    USERDATA *pDelete = NULL;
+    CUserData *pTmp = m_Head.pNext;
+    CUserData *pDelete = NULL;
 
     while(pTmp != NULL){
         pDelete = pTmp;
         pTmp = pTmp->pNext;
         free(pDelete);
     }
-    memset(&g_Head, 0x00, sizeof(USERDATA));
+    memset(&m_Head, 0x00, sizeof(CUserData));
 }

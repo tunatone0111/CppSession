@@ -1,6 +1,8 @@
 #pragma once
 
 class CUserData{
+    friend class CMyList;
+
 public:
     CUserData() = default;
     ~CUserData() = default;
@@ -13,7 +15,7 @@ public:
         return szPhone;
     }
 
-    CUserData* GetNext() const{
+    const CUserData* GetNext() const{
         return pNext;
     }
 
