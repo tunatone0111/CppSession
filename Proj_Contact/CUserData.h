@@ -13,7 +13,7 @@ public:
         return szPhone;
     }
 
-    const CUserData* GetNext() const{
+    CUserData* GetNext() const{
         return pNext;
     }
 

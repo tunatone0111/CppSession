@@ -3,8 +3,8 @@
 
 class CMyList{
 public:
-    CMyList() = default;
-    ~CMyList() = default;
+    CMyList(const char*);
+    ~CMyList();
 
     CUserData* FindNode(const char*);
     int AddNewNode(const char*, const char*);
@@ -16,5 +16,8 @@ public:
 protected:
     void ReleaseList(void);
     CUserData m_Head;
+
+private:
+    const char *pszFileName;
 
 };
