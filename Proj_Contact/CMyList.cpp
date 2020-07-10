@@ -25,14 +25,14 @@ CMyList::~CMyList(){
     CUserData *pTmp = m_Head.pNext;
 
     if((fp = fopen(DATA_FILE_NAME, "wb")) == NULL){
-        puts("ERROR: 리스트 파일을 쓰기 모드로 열지 못했습니다.");
+        cout << "ERROR: 리스트 파일을 쓰기 모드로 열지 못했습니다." << endl;
         fflush(stdin);
         getchar();
     }
     else{
         while(pTmp != NULL){
             if(fwrite(pTmp, sizeof(CUserData), 1, fp) != 1){
-                printf("ERROR: %s에 대한 정보를 저장하는 데 실패했습니다.\n", pTmp->GetName());
+                cout << "ERROR: " << pTmp->GetName() << "에 대한 정보를 저장하는 데 실패했습니다."  << endl;
                 break;
             }
             pTmp = pTmp->pNext;

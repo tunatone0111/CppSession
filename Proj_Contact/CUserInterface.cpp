@@ -1,6 +1,7 @@
 #include "CUserInterface.h"
 #include "CMyList.h"
 #include <iostream>
+using namespace std;
 
 CUserInterface::CUserInterface(CMyList &rList) 
     : m_List(rList)
@@ -10,13 +11,11 @@ void CUserInterface::Add(){
     char szName[32] = {0};
     char szPhone[32] = {0};
 
-    printf("Input name: ");
-    fflush(stdin);
-    scanf("%s", szName);
+    cout << "Input name: ";
+    cin >> szName;
 
-    printf("Input phone number: ");
-    fflush(stdin);
-    scanf("%s", szPhone);
+    cout << "Input phone number: ";
+    cin >> szPhone;
 
     m_List.AddNewNode(szName, szPhone);
 }
@@ -25,15 +24,14 @@ void CUserInterface::Search(){
     char szName[32] = {0};
     CUserData *pNode = NULL;
 
-    printf("Input name: ");
-    fflush(stdin);
-    scanf("%s", szName);
+    cout << "Input name: ";
+    cin >> szName;
 
     pNode = m_List.FindNode(szName);
     if(pNode != NULL)
         printf("[%p] %s\t%s [%p]\n", pNode, pNode->GetName(), pNode->GetPhone(), pNode->GetNext());
     else
-        puts("ERROR: 데이터를 찾을 수 없습니다.");
+        cout << "ERROR: 데이터를 찾을 수 없습니다." << endl;
 
     getchar();
     getchar();
@@ -42,9 +40,8 @@ void CUserInterface::Search(){
 void CUserInterface::Remove(){
     char szName[32] = {0};
 
-    printf("Input name: ");
-    fflush(stdin);
-    scanf("%s", szName);
+    cout << "Input name: ";
+    cin >> szName;
 
     m_List.RemoveNode(szName);
 }
@@ -78,9 +75,9 @@ int CUserInterface::PrintUI(){
     int nInput = 0;
 
     system("clear");
-    printf("[1] Add\t [2] Search\t [3] Print all\t [4] Remove\t [0] Exit\n:");
+    cout << "[1] Add\t [2] Search\t [3] Print all\t [4] Remove\t [0] Exit:" << endl << ":";
 
-    scanf("%d", &nInput);
+    cin >> nInput;
 
     return nInput;
 }
