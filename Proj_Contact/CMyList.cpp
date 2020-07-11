@@ -76,6 +76,9 @@ void CMyList::PrintAll(){
         pTmp = pTmp->pNext;
     }
 
+
+    cout << "CUserData Counter: " << CUserData::GetUserDataCounter() << endl;
+
     getchar();
     getchar();
 }
@@ -89,7 +92,7 @@ int CMyList::RemoveNode(const char* pszKey){
 
         if(strcmp(pDelete->GetKey(), pszKey) == 0){
             pPrevNode->pNext = pDelete->pNext;
-            free(pDelete);
+            delete pDelete;
             return 1;
         }
         pPrevNode = pPrevNode->pNext;

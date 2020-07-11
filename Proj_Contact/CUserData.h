@@ -16,7 +16,7 @@ public:
         return szPhone;
     }
 
-    const int GetUserDataCounter(){
+    static int GetUserDataCounter(){
         return nUserDataCounter;
     }
 
