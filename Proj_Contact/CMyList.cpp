@@ -1,5 +1,5 @@
-#include "CMyList.h"
-#include "CUserData.h"
+#include "headers/CMyList.h"
+#include "headers/CUserData.h"
 #include <iostream>
 #include <string.h>
 using namespace std;
@@ -62,25 +62,25 @@ int CMyList::AddNewNode(CMyNode *pNewNode){
         return 0;
     }
 
-    pNewNode->pNext = m_pHead->pNext;
-    m_pHead->pNext = pNewNode;
+    if(OnAddNewNode(pNewNode)){
+        pNewNode->pNext = m_pHead->pNext;
+        m_pHead->pNext = pNewNode;
 
-    return 1;
+        return 1;
+    }
+    return -1;
+
 }
 
-void CMyList::PrintAll(){
-    CMyNode *pTmp = m_pHead->pNext;
+CMyIterator CMyList::MakeIterator(){
+    CMyIterator it;
+    it.m_pHead = m_pHead->pNext;
+    it.m_pCurrent = m_pHead->pNext;
+    return it;
+}
 
-    while(pTmp != NULL){
-        pTmp->PrintNode();
-        pTmp = pTmp->pNext;
-    }
-
-
-    cout << "CUserData Counter: " << CUserData::GetUserDataCounter() << endl;
-
-    getchar();
-    getchar();
+int CMyList::OnAddNewNode(CMyNode* pNewNode){
+    return 1;
 }
 
 int CMyList::RemoveNode(const char* pszKey){

@@ -1,5 +1,6 @@
 #pragma once
 #include "CMyNode.h"
+#include "CMyIterator.h"
 #define DATA_FILE_NAME "Address.dat"
 
 class CMyList{
@@ -10,9 +11,11 @@ public:
     CMyNode* FindNode(const char*);
     int AddNewNode(CMyNode*);
 
-    void PrintAll();
-
     int RemoveNode(const char*);
+
+    CMyIterator MakeIterator();
+
+    virtual int OnAddNewNode(CMyNode*);
 
 protected:
     void ReleaseList(void);

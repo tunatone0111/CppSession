@@ -1,7 +1,7 @@
 #include <iostream>
-#include "CMyList.h"
-#include "CUserInterface.h"
-#include "CUserData.h"
+#include "headers/CMyList.h"
+#include "headers/CUserInterface.h"
+#include "headers/CUserData.h"
 using namespace std;
 
 int main(){

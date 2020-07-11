@@ -1,4 +1,4 @@
-#include "CUserData.h"
+#include "headers/CUserData.h"
 #include <iostream>
 #include <string.h>
 using namespace std;
@@ -11,8 +11,8 @@ CUserData::CUserData(){
 
 CUserData::CUserData(const char* pszName, const char* pszPhone)
 {
-    strcpy(szName, pszName);
-    strcpy(szPhone, pszPhone);
+    strName.SetString(pszName);
+    strPhone.SetString(pszPhone);
     nUserDataCounter++;
 }
 

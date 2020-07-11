@@ -10,6 +10,7 @@ public:
     void Add();
     void Search();
     void Remove();
+    void PrintAll();
     int PrintUI();
     int Run();
 

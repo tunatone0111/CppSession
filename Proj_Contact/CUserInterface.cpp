@@ -1,6 +1,6 @@
-#include "CUserInterface.h"
-#include "CMyList.h"
-#include "CUserData.h"
+#include "headers/CUserInterface.h"
+#include "headers/CMyList.h"
+#include "headers/CUserData.h"
 #include <iostream>
 using namespace std;
 
@@ -61,7 +61,7 @@ int CUserInterface::Run(){
             break;
 
         case 3:
-            m_List.PrintAll();
+            PrintAll();
             break;
 
         case 4:
@@ -70,6 +70,21 @@ int CUserInterface::Run(){
         }
     }
     return nMenu;
+}
+
+void CUserInterface::PrintAll(){
+    CMyIterator it = m_List.MakeIterator();
+    CMyNode *pTmp = NULL;
+
+    while((pTmp = it.GetCurrent()) != NULL){
+        static_cast<CUserData*>(pTmp)->PrintNode();
+        it.MoveNext();
+    }
+
+    cout << "CUserData Counter: " << CUserData::GetUserDataCounter() << endl;
+
+    getchar();
+    getchar();
 }
 
 int CUserInterface::PrintUI(){

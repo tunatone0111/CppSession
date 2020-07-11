@@ -1,4 +1,5 @@
 #pragma once
+#include "MyString.h"
 #include "CMyNode.h"
 
 class CUserData : public CMyNode{
@@ -9,11 +10,11 @@ public:
     ~CUserData();
 
     const char* GetName() const{
-        return szName;
+        return strName.GetString();
     }
 
     const char* GetPhone() const{
-        return szPhone;
+        return strPhone.GetString();
     }
 
     static int GetUserDataCounter(){
@@ -24,8 +25,8 @@ public:
     void PrintNode();
 
 protected:
-    char szName[32] = {0};
-    char szPhone[32] = {0};
+    CMyString strName;
+    CMyString strPhone;
     static int nUserDataCounter;
 
 };
