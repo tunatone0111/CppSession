@@ -1,28 +1,28 @@
 #include "CMyList.h"
+#include "CUserData.h"
 #include <iostream>
 #include <string.h>
 using namespace std;
 
-CMyList::CMyList(){
+CMyList::CMyList(CMyNode *pHead) : m_pHead(pHead){
     FILE *fp = NULL;
     CUserData user;
 
-    if ((fp = fopen(DATA_FILE_NAME, "rb")) != NULL){
+    if((fp = fopen(DATA_FILE_NAME, "rb")) == NULL)
+        cout << "ERROR: 리스트 파일을 쓰기 모드로 열지 못했습니다." << endl;
+    else{
         ReleaseList();
 
         while(fread(&user, sizeof(CUserData), 1, fp))
-            AddNewNode(user.GetName(), user.GetPhone());
+            AddNewNode(new CUserData(user.GetName(), user.GetPhone()));
 
         fclose(fp);
-    }
-    else{
-    cout << "ERROR: 리스트 파일을 읽기 모드로 열지 못했습니다." << endl;
     }
 }
 
 CMyList::~CMyList(){
     FILE *fp = NULL;
-    CUserData *pTmp = m_Head.pNext;
+    CMyNode *pTmp = m_pHead->pNext;
 
     if((fp = fopen(DATA_FILE_NAME, "wb")) == NULL){
         cout << "ERROR: 리스트 파일을 쓰기 모드로 열지 못했습니다." << endl;
@@ -32,7 +32,7 @@ CMyList::~CMyList(){
     else{
         while(pTmp != NULL){
             if(fwrite(pTmp, sizeof(CUserData), 1, fp) != 1){
-                cout << "ERROR: " << pTmp->GetName() << "에 대한 정보를 저장하는 데 실패했습니다."  << endl;
+                cout << "ERROR: " << pTmp->GetKey() << "에 대한 정보를 저장하는 데 실패했습니다."  << endl;
                 break;
             }
             pTmp = pTmp->pNext;
@@ -44,11 +44,11 @@ CMyList::~CMyList(){
     ReleaseList();
 }
 
-CUserData* CMyList::FindNode(const char* pszName){
+CMyNode* CMyList::FindNode(const char* pszKey){
     // 리스트에서 이름으로 특정 노드를 검색
-    CUserData *pTmp = m_Head.pNext;
+    CMyNode *pTmp = m_pHead->pNext;
     while(pTmp != NULL){
-        if(strcmp(pTmp->GetName(), pszName) == 0)
+        if(strcmp(pTmp->GetKey(), pszKey) == 0)
             return pTmp;
         
         pTmp = pTmp->pNext;
@@ -56,28 +56,23 @@ CUserData* CMyList::FindNode(const char* pszName){
     return NULL;
 }
 
-int CMyList::AddNewNode(const char* pszName, const char* pszPhone){
-    CUserData *pNewUser = NULL;
-
-    if(FindNode(pszName) != NULL)
+int CMyList::AddNewNode(CMyNode *pNewNode){
+    if(FindNode(pNewNode->GetKey()) != NULL){
+        delete pNewNode;
         return 0;
+    }
 
-    pNewUser = new CUserData;
-
-    strcpy(pNewUser->szName, pszName);
-    strcpy(pNewUser->szPhone, pszPhone);
-    pNewUser->pNext = NULL;
-
-    pNewUser->pNext = m_Head.pNext;
-    m_Head.pNext = pNewUser;
+    pNewNode->pNext = m_pHead->pNext;
+    m_pHead->pNext = pNewNode;
 
     return 1;
 }
 
 void CMyList::PrintAll(){
-    CUserData *pTmp = m_Head.pNext;
+    CMyNode *pTmp = m_pHead->pNext;
+
     while(pTmp != NULL){
-        printf("[%p] %s\t%s [%p]\n", pTmp, pTmp->szName, pTmp->szPhone, pTmp->pNext);
+        pTmp->PrintNode();
         pTmp = pTmp->pNext;
     }
 
@@ -85,14 +80,14 @@ void CMyList::PrintAll(){
     getchar();
 }
 
-int CMyList::RemoveNode(const char* pszName){
-    CUserData *pPrevNode = &m_Head;
-    CUserData *pDelete = NULL;
+int CMyList::RemoveNode(const char* pszKey){
+    CMyNode *pPrevNode = m_pHead;
+    CMyNode *pDelete = NULL;
 
     while(pPrevNode->pNext != NULL){
         pDelete = pPrevNode->pNext;
 
-        if(strcmp(pDelete->szName, pszName) == 0){
+        if(strcmp(pDelete->GetKey(), pszKey) == 0){
             pPrevNode->pNext = pDelete->pNext;
             free(pDelete);
             return 1;
@@ -103,13 +98,13 @@ int CMyList::RemoveNode(const char* pszName){
 }
 
 void CMyList::ReleaseList(){
-    CUserData *pTmp = m_Head.pNext;
-    CUserData *pDelete = NULL;
+    CMyNode *pTmp = m_pHead->pNext;
+    CMyNode *pDelete = NULL;
 
     while(pTmp != NULL){
         pDelete = pTmp;
         pTmp = pTmp->pNext;
-        free(pDelete);
+        delete pDelete;
     }
-    memset(&m_Head, 0x00, sizeof(CUserData));
+    memset(m_pHead, 0x00, sizeof(CUserData));
 }

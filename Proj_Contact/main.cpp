@@ -1,11 +1,12 @@
 #include <iostream>
 #include "CMyList.h"
 #include "CUserInterface.h"
+#include "CUserData.h"
 using namespace std;
 
 int main(){
-    cout << "Hello World!" << endl;
-    CMyList DB;
+    CUserData pHead;
+    CMyList DB(&pHead);
     CUserInterface UI(DB);
     UI.Run();
     return 0;

@@ -1,5 +1,6 @@
 #include "CUserInterface.h"
 #include "CMyList.h"
+#include "CUserData.h"
 #include <iostream>
 using namespace std;
 
@@ -17,7 +18,7 @@ void CUserInterface::Add(){
     cout << "Input phone number: ";
     cin >> szPhone;
 
-    m_List.AddNewNode(szName, szPhone);
+    m_List.AddNewNode(new CUserData(szName, szPhone));
 }
 
 void CUserInterface::Search(){
@@ -27,7 +28,7 @@ void CUserInterface::Search(){
     cout << "Input name: ";
     cin >> szName;
 
-    pNode = m_List.FindNode(szName);
+    pNode = static_cast<CUserData*>(m_List.FindNode(szName));
     if(pNode != NULL)
         printf("[%p] %s\t%s [%p]\n", pNode, pNode->GetName(), pNode->GetPhone(), pNode->GetNext());
     else

@@ -1,14 +1,14 @@
 #pragma once
-#include "CUserData.h"
+#include "CMyNode.h"
 #define DATA_FILE_NAME "Address.dat"
 
 class CMyList{
 public:
-    CMyList();
+    CMyList(CMyNode*);
     ~CMyList();
 
-    CUserData* FindNode(const char*);
-    int AddNewNode(const char*, const char*);
+    CMyNode* FindNode(const char*);
+    int AddNewNode(CMyNode*);
 
     void PrintAll();
 
@@ -16,9 +16,5 @@ public:
 
 protected:
     void ReleaseList(void);
-    CUserData m_Head;
-
-private:
-    const char *pszFileName;
-
+    CMyNode* m_pHead;
 };

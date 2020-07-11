@@ -1,0 +1,2 @@
+#include "CMyNode.h"
+
